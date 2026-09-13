@@ -206,7 +206,7 @@ app.post('/api/admin/verify', (req, res) => {
   } else {
     res.status(401).json({
       success: false,
-      message: 'Tài khoản hoặc mật khẩu quản trị viên không chính xác (Yêu cầu User: Bundau và Pass: Mue1609).'
+      message: 'Tài khoản hoặc mật khẩu quản trị viên không chính xác.'
     });
   }
 });

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Lock, KeyRound, User, X, CheckCircle, ShieldAlert, Sparkles } from 'lucide-react';
+import { Lock, KeyRound, User, X, CheckCircle, ShieldAlert } from 'lucide-react';
 import { verifyAdminPassword } from '../utils/api';
 
 interface AdminModalProps {
@@ -17,7 +17,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({
   onLoginSuccess,
   onLogout,
 }) => {
-  const [username, setUsername] = useState('Bundau');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -27,11 +27,11 @@ export const AdminModal: React.FC<AdminModalProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!username.trim()) {
-      setError('Vui lòng nhập tên tài khoản admin.');
+      setError('Vui lòng nhập tên tài khoản.');
       return;
     }
     if (!password) {
-      setError('Vui lòng nhập mật khẩu quản trị viên.');
+      setError('Vui lòng nhập mật khẩu.');
       return;
     }
     setIsLoading(true);
@@ -42,17 +42,12 @@ export const AdminModal: React.FC<AdminModalProps> = ({
 
     if (success) {
       onLoginSuccess();
+      setUsername('');
       setPassword('');
       onClose();
     } else {
-      setError('Tài khoản hoặc mật khẩu không đúng. Vui lòng kiểm tra lại (User: Bundau / Pass: Mue1609).');
+      setError('Tài khoản hoặc mật khẩu không chính xác. Vui lòng thử lại.');
     }
-  };
-
-  const handleQuickFill = () => {
-    setUsername('Bundau');
-    setPassword('Mue1609');
-    setError('');
   };
 
   return (
@@ -94,7 +89,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({
             <div className="p-4 rounded-xl bg-[#2e1a13] border border-[#4a2a1f] flex items-start gap-3">
               <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
               <div className="text-sm text-[#ecd5d8]">
-                <p className="font-semibold text-emerald-300">Đã đăng nhập quyền Admin (Bundau)</p>
+                <p className="font-semibold text-emerald-300">Đã đăng nhập quyền Admin</p>
                 <p className="text-xs text-[#bda099] mt-1 leading-relaxed">
                   Bạn có toàn quyền: Tự chèn & thay đổi ảnh bìa, thêm/xóa trang scan Messbook, xóa bình luận, chỉnh sửa Project và phản hồi/xóa Ý kiến.
                 </p>
@@ -125,7 +120,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder="Nhập User: Bundau"
+                  placeholder="Nhập tên tài khoản..."
                   className="w-full px-4 py-2.5 pl-10 rounded-xl bg-[#1a0e0a] border border-[#522b20] text-[#fbeee9] placeholder-[#805f57] focus:outline-none focus:border-[#d9777f] text-sm"
                   autoFocus
                 />
@@ -144,7 +139,7 @@ export const AdminModal: React.FC<AdminModalProps> = ({
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Nhập Pass: Mue1609"
+                  placeholder="Nhập mật khẩu..."
                   className="w-full px-4 py-2.5 pl-10 rounded-xl bg-[#1a0e0a] border border-[#522b20] text-[#fbeee9] placeholder-[#805f57] focus:outline-none focus:border-[#d9777f] text-sm"
                 />
                 <KeyRound className="w-4 h-4 text-[#a37970] absolute left-3.5 top-3" />
@@ -155,25 +150,6 @@ export const AdminModal: React.FC<AdminModalProps> = ({
                   <span>{error}</span>
                 </div>
               )}
-            </div>
-
-            {/* Quick Fill Note */}
-            <div className="p-3 rounded-lg bg-[#1f110c] border border-[#43231a] flex items-center justify-between text-xs text-[#bda099]">
-              <div>
-                <span>Tài khoản Admin: </span>
-                <code className="text-[#f4c2c2] bg-[#331b14] px-1.5 py-0.5 rounded font-mono">User: Bundau</code>
-                <span className="mx-1">•</span>
-                <code className="text-[#f4c2c2] bg-[#331b14] px-1.5 py-0.5 rounded font-mono">Pass: Mue1609</code>
-              </div>
-              <button
-                type="button"
-                id="btn-quick-fill-pass"
-                onClick={handleQuickFill}
-                className="text-[#e2b18a] hover:text-[#f4c2c2] underline cursor-pointer flex items-center gap-1 shrink-0 ml-2"
-              >
-                <Sparkles className="w-3 h-3" />
-                Điền nhanh
-              </button>
             </div>
 
             <div className="flex items-center gap-3 pt-2">
