@@ -1,0 +1,7 @@
+{
+  "name": "My Love",
+  "description": "Góc nhỏ My Love lưu giữ Messbook scan, các Project ý nghĩa và nơi gửi gắm Ý kiến đáng yêu.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
